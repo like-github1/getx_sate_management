@@ -1,89 +1,180 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/get.dart';
 
 import 'Customersdetails.dart';
-import 'homepage.dart';
-void main(){
 
-
+void main() {
   runApp(const GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    title: "Taxiyee",
-    home: myapp(),
+    title: "GetX",
+    home: Myapp(),
   ));
 }
-class myapp extends StatelessWidget {
-  const myapp({Key? key}) : super(key: key);
+
+class Myapp extends StatefulWidget {
+  const Myapp({Key? key}) : super(key: key);
+  @override
+  _MyappState createState() => _MyappState();
+}
+class _MyappState extends State<Myapp> {
+  List<String>_itemlist=['item1','item2','item3'];
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        title:const  Text("ታክሲዬ"),
+        title: const Text("GetxApp"),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 70,top: 50),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-     crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: (){
+      body: Column(
+
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(left: 58.0),
+            child: ElevatedButton(
+                onPressed: () {
                   Get.snackbar(
-                      "title of the SnackBar",
-                      "message about SnackBar",
-                    colorText: Colors.white,
-                    duration: const Duration(milliseconds: 4000),
+                    "snackbar title",
+                    "snackbar messages",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.pink,
+                    borderRadius: 40,
                     animationDuration:const Duration(milliseconds: 4000),
-                    titleText:const  Text("new title text"),
-                    messageText:const  Text("New message Text"),
-                    maxWidth: width,
-                    backgroundColor: Colors.black,
-                    isDismissible: true,
-                    backgroundGradient: const LinearGradient(
-                        colors: [
-                          Colors.pink, Colors.yellow,
-                        ]
-                    )
+                    backgroundGradient: const LinearGradient(colors: [Colors.yellow,Colors.pink]),
+                    titleText:const Text("Snackbar title Text"),
+                    borderWidth: 2,
+                    borderColor: Colors.black,
+                    messageText:const Text(
+                        "message Text",
+                      // style: TextStyle(
+                      //   fontSize: 20,
+                      //   fontWeight: FontWeight.bold,
+                      //
+                      // ),
+                    ),
+                    boxShadows: [
+                      const BoxShadow(
+                        color: Colors.yellow,
+                        offset: Offset(30,40),
+                        spreadRadius: 30,
+                        blurRadius: 40,
+                      )
+                    ],
+                    icon: const Icon(
+                      Icons.send,
+                      color: Colors.white,
+                    ),
+                    mainButton: TextButton(
+                        onPressed: (){}, child:const Text("retry")),
+                    overlayBlur: 5,
+                    onTap: (_){},
+                    overlayColor: Colors.indigo,
                   );
                 },
-                child:const Text("showSnackBar")
+                child: const Text('showSandbar'),
             ),
-            const SizedBox(height: 15,),
-            ElevatedButton(
-                onPressed: (){
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 58.0),
+            child: ElevatedButton(
+                onPressed: () {
                   Get.defaultDialog(
-                    title: "Taxye Dialog",
-                    middleText: "Taxiye Message for Customers",
-                    textCancel: "Cancel",
-                    textConfirm: "Accept now",
+                    title: "default Dialgo",
+                    middleText: "this is a message text for Dialog",
+                    titleStyle:const  TextStyle(fontSize: 15),
+                    middleTextStyle: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.deepPurple,
+                    ),
+                   // content: Row(
+                   //   children: [
+                   //   ],
+                   //
+                   // ),
+                   buttonColor: Colors.pink,
+                   textConfirm: 'submit',
+                    textCancel: 'Cancel',
+                    confirmTextColor: Colors.green,
+                    cancelTextColor: Colors.red,
+                    onCancel: (){},
+                    onConfirm: (){},
+                    // cancel:const  Text(
+                    //   "new cancels",
+                    // ),
+                    // confirm: const Text(
+                    //   "new confirm",
+                    //   style: TextStyle(
+                    //     color: Colors.yellow,
+                    //   ),
+                    // ),
+                    // actions: [
+                    //   ElevatedButton(
+                    //       onPressed:(){},
+                    //       child:const  Text("Back")
+                    //   ),
+                    //   ElevatedButton(
+                    //       onPressed:(){},
+                    //       child:const  Text("Back")
+                    //   ),
+                    // ]
 
                   );
-                },
-                child:const Text("show Taxiye Message"),
-            ),
-           const  SizedBox(height: 15,),
-            ElevatedButton(
+                }, child: const Text("showDialog")),
+          ),
+          ElevatedButton(
               onPressed: (){
-                Get.to(()=>const myapps());
-              },
-              child:const Text("show Taxiye Car"),
-            ),
-            const  SizedBox(height: 15,),
-            ElevatedButton(
-              onPressed: (){
-                Get.to(()=>const customer());
-              },
-              child:const Text("show taxiye Customer "),
-            ),
+                Get.bottomSheet(
+                  SizedBox(
+                    height: 250,
+                    child: Column(
+                      children: <Widget>[
+                        ListTile(
+                          leading: const Icon(Icons.wb_sunny_outlined),
+                          title: const Text("Light Theme"),
+                          onTap:(){
+                            Get.changeTheme(ThemeData.light());
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.wb_sunny),
+                          title: Text("Dark Theme"),
+                          onTap:()=> Get.changeTheme(ThemeData.dark()),
+                        ),
+                      ],
+                    ),
+                  ),
+                  isDismissible: true,
+                  backgroundColor: Colors.purple,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
 
-          ],
+                    // side: BorderSide(
+                    //   color: Colors.pink,
+                    //   width: 8,
+                    //
+                    // )
 
-        ),
+
+                  ),
+                  elevation: 3,
+                  enableDrag: false,
+
+
+                );
+
+
+              },
+              child:const Text("Bottom Shhet"),
+          ),
+          ElevatedButton(
+              onPressed: (){},
+              child:const Text("GotoHomePage"))
+        ],
       ),
+      drawer: const Drawer(
+        child: drawers(),
+      )
     );
   }
 }
